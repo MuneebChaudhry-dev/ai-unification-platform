@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { 
   ChatSidebar, 
   ChatHeader, 
@@ -8,6 +9,8 @@ import {
 } from "@/components/chat";
 
 export default function ChatPage() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  
   const handleNewChat = () => {
     console.log("New chat created");
   };
@@ -17,16 +20,27 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="container-max pt-6 pb-10">
-      <div className="grid grid-cols-12 gap-6">
-        <ChatSidebar onNewChat={handleNewChat} />
+    <div className="flex h-screen bg-background">
+      <ChatSidebar 
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        onNewChat={handleNewChat} 
+      />
 
-        <section className="col-span-12 md:col-span-9 lg:col-span-9 flex flex-col">
-          <ChatHeader />
-          <EmptyState />
-          <ChatComposer onSend={handleSend} />
-        </section>
-      </div>
+      <main className={`
+        flex-1 flex flex-col items-center justify-center relative transition-all duration-300
+        ${sidebarOpen ? 'ml-64' : 'ml-0'}
+      `}>
+        <div className="w-full max-w-4xl mx-auto flex flex-col h-full px-4">
+          {/* <ChatHeader /> */}
+          <div className="flex-1 flex items-center justify-center">
+            <EmptyState />
+          </div>
+          <div className="pb-6">
+            <ChatComposer onSend={handleSend} />
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
