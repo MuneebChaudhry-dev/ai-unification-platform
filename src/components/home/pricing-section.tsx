@@ -6,40 +6,69 @@ import { Badge } from "@/components/ui/badge";
 interface PricingTier {
   name: string;
   price: string;
-  badge: string;
+  badge?: string;
   cta: string;
+  features: string[];
 }
 
 export function PricingSection() {
   const pricingTiers: PricingTier[] = [
-    { name: "Free", price: "$0", badge: "", cta: "Get Started" },
-    { name: "Basic", price: "$29", badge: "", cta: "Choose Basic" },
-    { name: "Pro", price: "$99", badge: "Most Popular", cta: "Choose Pro" },
-    { name: "Pro Max", price: "$299", badge: "", cta: "Choose Pro Max" },
+    { 
+      name: "Starter", 
+      price: "$0", 
+      cta: "Get Started",
+      features: ["100 credits/month", "Basic models", "Community support"]
+    },
+    { 
+      name: "Pro", 
+      price: "$29", 
+      badge: "Most Popular",
+      cta: "Start Pro Trial",
+      features: ["5,000 credits/month", "All models", "Priority support", "Team collaboration"]
+    },
+    { 
+      name: "Team", 
+      price: "$99", 
+      cta: "Contact Sales",
+      features: ["25,000 credits/month", "Advanced features", "Custom integrations", "Dedicated support"]
+    },
   ];
 
   return (
-    <section id="pricing" className="bg-white/[.02] border-y border-divider/40 py-16 md:py-24">
+    <section id="pricing" className="py-24">
       <div className="container-max">
-        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-10">
-          Simple Credit-Based Pricing
-        </h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Simple, transparent pricing
+          </h2>
+          <p className="text-xl text-muted-foreground">
+            Choose the plan that's right for your team
+          </p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
           {pricingTiers.map((tier) => (
-            <Card key={tier.name} className={tier.badge ? "ring-1 ring-brand shadow-[0_0_30px_rgba(255,107,53,0.15)]" : ""}>
+            <Card key={tier.name} className={`p-8 relative ${tier.badge ? "border-brand shadow-lg scale-105" : ""}`}>
               {tier.badge && (
-                <Badge variant="brand" className="mb-3">
+                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   {tier.badge}
                 </Badge>
               )}
-              <h3 className="text-lg font-semibold">{tier.name}</h3>
-              <p className="text-3xl font-bold mt-2">{tier.price}</p>
-              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                <li>Credits included</li>
-                <li>Access to multiple models</li>
-                <li>Email support</li>
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
+                <div className="mb-4">
+                  <span className="text-4xl font-bold">{tier.price}</span>
+                  <span className="text-muted-foreground">/month</span>
+                </div>
+              </div>
+              <ul className="space-y-3 mb-8">
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex items-center gap-3">
+                    <span className="text-brand">✓</span>
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
               </ul>
-              <Button asChild className="mt-6 w-full">
+              <Button asChild className="w-full" variant={tier.badge ? "default" : "outline"}>
                 <Link href="/chat">{tier.cta}</Link>
               </Button>
             </Card>

@@ -3,6 +3,7 @@ export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
 export { Button, buttonVariants } from "./button";
 export { Input } from "./input";
 export { Checkbox } from "./checkbox";
+export { ThemeToggle } from "./theme-toggle";
 export { 
   Select, 
   SelectGroup, 

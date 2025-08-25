@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -49,22 +48,22 @@ export function ChatComposer({ onSend, credits = 1247 }: ChatComposerProps) {
   };
 
   return (
-    <Card className="p-4">
-      <div className="flex flex-wrap gap-4 text-sm">
+    <div className="border-t p-4 bg-background">
+      <div className="flex flex-wrap gap-6 mb-4 text-sm">
         {serviceOptions.map(([label, key]) => (
-          <label key={key} className="flex items-center gap-2 text-muted-foreground">
+          <label key={key} className="flex items-center gap-2 cursor-pointer">
             <Checkbox
               checked={service[key]}
               onCheckedChange={(checked) => handleServiceChange(key, !!checked)}
             />
-            {label}
+            <span className="text-sm">{label}</span>
           </label>
         ))}
       </div>
       
-      <div className="mt-3 flex items-center gap-3">
+      <div className="flex items-center gap-3 mb-3">
         <Select value={selectedModel} onValueChange={setSelectedModel}>
-          <SelectTrigger className="w-32">
+          <SelectTrigger className="w-40">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -76,25 +75,20 @@ export function ChatComposer({ onSend, credits = 1247 }: ChatComposerProps) {
         
         <Input
           className="flex-1"
-          placeholder="Message GPT-4..."
+          placeholder="Type your message..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && handleSend()}
         />
         
-        <Button variant="ghost" size="icon" title="Attach">
-          📎
-        </Button>
-        
-        <Button onClick={handleSend} size="icon" title="Send">
-          ➤
+        <Button onClick={handleSend} disabled={!message.trim()}>
+          Send
         </Button>
       </div>
       
-      <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+      <div className="flex items-center justify-between text-xs text-muted-foreground">
         <span>Estimated cost: 2–5 credits</span>
-        <span>Remaining: {credits.toLocaleString()} credits</span>
       </div>
-    </Card>
+    </div>
   );
 }

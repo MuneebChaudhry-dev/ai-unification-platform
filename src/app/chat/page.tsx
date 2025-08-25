@@ -17,15 +17,13 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="container-max pt-6 pb-10">
-      <div className="grid grid-cols-12 gap-6">
-        <ChatSidebar onNewChat={handleNewChat} />
-
-        <section className="col-span-12 md:col-span-9 lg:col-span-9 flex flex-col">
-          <ChatHeader />
-          <EmptyState />
-          <ChatComposer onSend={handleSend} />
-        </section>
+    <div className="flex h-screen">
+      <ChatSidebar onNewChat={handleNewChat} />
+      
+      <div className="flex-1 flex flex-col">
+        <ChatHeader />
+        <EmptyState />
+        <ChatComposer onSend={handleSend} />
       </div>
     </div>
   );

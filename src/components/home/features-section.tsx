@@ -2,29 +2,48 @@ import { Card } from "@/components/ui/card";
 
 export function FeaturesSection() {
   const features = [
-    "Text Generation",
-    "Code Assistant", 
-    "Image Generation",
-    "Video Generation"
+    {
+      title: "Chat with AI",
+      description: "Engage with GPT-4, Claude, and other leading language models in natural conversation.",
+      icon: "💬"
+    },
+    {
+      title: "Generate Images", 
+      description: "Create stunning visuals with DALL-E, Midjourney, and Stable Diffusion.",
+      icon: "🎨"
+    },
+    {
+      title: "Code Assistant",
+      description: "Get help with coding, debugging, and technical documentation.",
+      icon: "💻"
+    },
+    {
+      title: "Video Creation",
+      description: "Generate and edit videos using the latest AI video models.",
+      icon: "🎬"
+    }
   ];
 
   return (
-    <section id="features" className="container-max py-16 md:py-24">
-      <h2 className="text-2xl md:text-3xl font-semibold text-center mb-10">
-        Powerful AI Services
-      </h2>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {features.map((title) => (
-          <Card key={title}>
-            <div className="size-10 rounded-md bg-brand/20 text-brand grid place-items-center mb-4">
-              ★
-            </div>
-            <h3 className="font-medium mb-1">{title}</h3>
-            <p className="text-sm text-muted-foreground">
-              Create high-quality outputs with best-in-class models. Hover for glow.
-            </p>
-          </Card>
-        ))}
+    <section id="features" className="py-24 bg-muted/30">
+      <div className="container-max">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Everything you need in one platform
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Access the world's most powerful AI models through a single, intuitive interface.
+          </p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {features.map((feature) => (
+            <Card key={feature.title} className="p-6 text-center hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-4">{feature.icon}</div>
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-muted-foreground">{feature.description}</p>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );

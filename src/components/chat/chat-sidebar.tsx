@@ -9,40 +9,37 @@ interface ChatSidebarProps {
 
 export function ChatSidebar({ onNewChat }: ChatSidebarProps) {
   const chatHistory = [
-    { id: 1, title: "Image Generation", subtitle: "Create a futuristic cityscape...", active: true },
-    { id: 2, title: "Code Review", subtitle: "Review my React component...", active: false },
-    { id: 3, title: "Content Writing", subtitle: "Write a blog post about AI...", active: false },
-    { id: 4, title: "Video Script", subtitle: "Create a promotional video...", active: false },
+    { id: 1, title: "New Chat", subtitle: "Start a conversation...", active: true },
   ];
 
   return (
-    <aside className="col-span-12 md:col-span-3 lg:col-span-3">
-      <Card className="p-4 h-[70vh] md:h-[76vh] flex flex-col">
-        <div className="flex items-center justify-between mb-3">
-          <div className="font-semibold">Chat History</div>
-          <Button size="sm" onClick={onNewChat}>
-            + New Chat
-          </Button>
-        </div>
-        
-        <div className="relative mb-3">
+    <aside className="w-64 border-r bg-muted/30 flex flex-col h-screen">
+      <div className="p-4 border-b">
+        <Button onClick={onNewChat} className="w-full justify-start gap-2">
+          <span className="text-lg">+</span>
+          New Chat
+        </Button>
+      </div>
+      
+      <div className="flex-1 overflow-auto">
+        <div className="p-2">
           <Input 
-            placeholder="Search" 
-            className="text-sm"
+            placeholder="Search conversations..." 
+            className="mb-4"
           />
+          
+          <div className="space-y-1">
+            {chatHistory.map((chat) => (
+              <SidebarItem
+                key={chat.id}
+                title={chat.title}
+                subtitle={chat.subtitle}
+                active={chat.active}
+              />
+            ))}
+          </div>
         </div>
-        
-        <div className="space-y-2 overflow-auto pr-1">
-          {chatHistory.map((chat) => (
-            <SidebarItem
-              key={chat.id}
-              title={chat.title}
-              subtitle={chat.subtitle}
-              active={chat.active}
-            />
-          ))}
-        </div>
-      </Card>
+      </div>
     </aside>
   );
 }
